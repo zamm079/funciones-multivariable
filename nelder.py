@@ -27,7 +27,6 @@ def nelder_mead(func, x_start, tol=1e-6, max_iter=1000):
     # Inicializar el simplex
     n = len(x_start)
     simplex = np.zeros((n + 1, n))
-    print(simplex)
     simplex[0] = x_start
     for i in range(n):
         y = np.array(x_start, copy=True)
@@ -36,8 +35,8 @@ def nelder_mead(func, x_start, tol=1e-6, max_iter=1000):
 
     # Evaluar la función en los vértices del simplex
     f_values = np.apply_along_axis(func, 1, simplex)
-
     iter_count = 0
+    print(simplex)
     while iter_count < max_iter:
         # Ordenar el simplex por los valores de la función
         indices = np.argsort(f_values)
@@ -83,7 +82,7 @@ def nelder_mead(func, x_start, tol=1e-6, max_iter=1000):
         # Verificar convergencia
         if np.max(np.abs(simplex[0] - simplex[1:])) < tol:
             break
-
+    print(simplex)
     return {
         'x': simplex[0],
         'fval': f_values[0],
