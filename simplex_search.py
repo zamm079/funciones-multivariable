@@ -1,8 +1,11 @@
 import numpy as np
 import math
 from funciones_prueba.sphere_funcion import sphere_function
+# from funciones_prueba.Himmelblaus_function import Himmelblaus_function
+# from funciones_prueba.rastrigin_function import rastrigin
+# from funciones_prueba.rosenbrock_function import rosenbrock_funt
 
-def simplex_search_meth(x,func,gama=1.5,beta=0.2,epsilon=0.001):
+def simplex_search_meth(x,func,gama=2.0,beta=0.2,epsilon=0.001):
     # step 1
     #no cero hipervolumen
     alpha=1
@@ -16,22 +19,24 @@ def simplex_search_meth(x,func,gama=1.5,beta=0.2,epsilon=0.001):
                 simplex[i,j] = x[j]+d1
             if j != i:
                 simplex[i,j] = x[j]+d2
-    i_max = 1000
+    i_max = 10
     i = 0
 
     # step 2
     f_values = np.apply_along_axis(func, 1, simplex)
     xi=0
+    
     while i < i_max:
         val_orden = np.argsort(f_values)
         simplex = simplex[val_orden]
         xl,xg,xh = f_values[val_orden]
         #Xc
-        xc = np.mean(simplex[:-1],axis=0)
+        xc = np.mean(simplex[:-1])
         i+=1
         #step 3
         xr = 2*xc - xh
         xnew = xr
+        
         if func(xr) < func(xl):
             xnew = (1+gama)*xc - (gama*xh) 
         elif func(xr) >= func(xh):
@@ -41,11 +46,13 @@ def simplex_search_meth(x,func,gama=1.5,beta=0.2,epsilon=0.001):
         xh = xnew
         #step 4
         xi= np.sum(func(simplex))
-        term1=(xi-xc)**2/(N+1)
-        print('term1',term1)
+        term1=np.sum((xi-xc)**2/(N+1))
         if term1**0.5 < epsilon:
             break
     return xnew
 
 
-print("prueba ",simplex_search_meth(np.array([-1,1.5]),sphere_function))
+print("prueba sphere_function ",simplex_search_meth(np.array([-1,1.5]),sphere_function))
+# print("prueba Himmelblaus_function ",simplex_search_meth(np.array([-1,1.5]),Himmelblaus_function))
+# print("prueba rastrigin ",simplex_search_meth(np.array([-1,1.5]),rastrigin))
+# print("prueba rosenbrock_funt ",simplex_search_meth(np.array([-1.0,1.5]),rosenbrock_funt))

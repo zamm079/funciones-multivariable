@@ -5,7 +5,6 @@ def rastrigin(X):
     A = 10
     n = len(X)
     r = A * n + np.sum(X**2 - A * np.cos(2 * np.pi * X),axis=0)
-    print('R=',r)
     return r
 
 # x = np.linspace(-5.12, 5.12, 100)

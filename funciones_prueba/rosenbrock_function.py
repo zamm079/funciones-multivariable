@@ -1,9 +1,18 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def rosenbrock_funt(X,Y):
+def rosenbrock_funt(X, Y=None):
+    if Y is None:
+        if isinstance(X, (np.ndarray, list, tuple)) and len(X) == 2:
+            X, Y = X
+        else:
+            raise ValueError("Si se pasa un solo argumento, debe ser una lista, tupla o np.array con dos elementos")
     r = (100 * (Y - X**2)**2) + (1 - X)**2 
     return r
+
+# print(rosenbrock_funt(np.array([-1,1.5])))
+# print(rosenbrock_funt(-1,1.5))
+
 
 # x = np.linspace(-2, 2, 100)
 # y = np.linspace(-1, 3, 100)

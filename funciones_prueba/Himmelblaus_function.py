@@ -1,9 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def Himmelblaus_function(x,y):
-    r = (x**2 + y - 11)**2 + (x + y**2 -7)**2
+def Himmelblaus_function(x):
+    r = (x**2 + x - 11)**2 + (x + x**2 -7)**2
     return r
+
+
+# print(Himmelblaus_function(np.array([-1,1.5])))
 
 # x = np.linspace(-5,5,100)
 # y = np.linspace(-5,5,100)
