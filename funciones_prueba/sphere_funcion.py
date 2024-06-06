@@ -5,6 +5,8 @@ def sphere_function(X):
     r = np.sum(X**2,axis=0)
     return r
 
+print(sphere_function(np.array([-1,1.5])))
+
 # x = np.linspace(-2,2,100)
 # y = np.linspace(-2,2,100)
 # X,Y = np.meshgrid(x,y)
